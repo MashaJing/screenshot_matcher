@@ -4,8 +4,7 @@ The screenshot_matcher is a powerful tool designed for developers and testers to
 
 Integrated seamlessly with the vedro testing framework, it aids in performing visual regression tests with ease.
 
-![](https://paper-attachments.dropboxusercontent.com/s_951C6C89426BC37EA307E387F3CACB0D6B5F906814D464387E43AA45EFA18300_1696513799741_image.png)
-
+![rn_image_picker_lib_temp_96855992-842a-40ec-8d1e-bc81f029e72a](https://github.com/MashaJing/vedro-screenshot-matcher/assets/53327043/aed74384-9489-4e23-a6fe-2e6ec338edee)
 
 # Installation
 
