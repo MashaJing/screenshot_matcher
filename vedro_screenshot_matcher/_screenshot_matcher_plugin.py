@@ -4,7 +4,6 @@ from shutil import rmtree
 from typing import Any, Type
 
 from playwright.async_api import Locator
-from rtry import retry
 from vedro.core import ConfigType, Dispatcher, Plugin, PluginConfig, VirtualScenario
 from vedro.events import (
     ArgParsedEvent,
@@ -29,7 +28,6 @@ __all__ = ("ScreenshotMatcher", "ScreenshotMatcherPlugin", "match_screenshot",)
 _screenshot_matcher = _ScreenshotMatcher()
 
 
-@retry(attempts=10, delay=0.25, swallow=ScreenshotMismatchError, logger=print)
 async def match_screenshot(locator: Locator, **kwargs: Any) -> bool:
     return await _screenshot_matcher.match_screenshot(locator, **kwargs)
 

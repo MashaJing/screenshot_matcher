@@ -66,15 +66,15 @@ class ScreenshotMatcher:
         return result
 
     def _resize_images(self, golden_img: Image, test_img: Image) -> Tuple[Any, Any]:
-        # 1. Берём max_width/max_height среди golden_img и test_img
+        # 1. Take max_width/max_height among golden_img and test_img
         max_height = max(golden_img.height, test_img.height)
         max_width = max(golden_img.width, test_img.width)
 
-        # 2. Вписываем golden_img в заглушку размером max_width/max_height
+        # 2. Insert golden_img into the stub with size max_width/max_height
         golden_img_resized = Image.new("RGB", (max_width, max_height))
         golden_img_resized.paste(golden_img)
 
-        # 3. Вписываем test_img в заглушку размером max_width/max_height
+        # 3. Insert test_img into the stub with size max_width/max_height
         test_img_resized = Image.new("RGB", (max_width, max_height))
         test_img_resized.paste(test_img)
 
@@ -98,10 +98,10 @@ class ScreenshotMatcher:
         if golden_img == branch_img:
             return True
 
-        # Размер элемента на ветке может быть больше/меньше
-        # pixelmatch не умеет сравнивать изображения разных размеров и вместо диффа кидает:
+        # The size of an element on a branch can be larger/smaller
+        # pixelmatch does not know how to compare images of different sizes and throws instead of diff:
         # - ValueError: ('Image sizes do not match.', 9800, 6560)
-        # Поэтому приводим изображения к одному размеру
+        # So we cast the images to the same size
         golden_img, branch_img = self._resize_images(golden_img, branch_img)
 
         diff_img = Image.new("RGBA", golden_img.size)
