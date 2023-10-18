@@ -10,7 +10,7 @@ Integrated seamlessly with the vedro testing framework, it aids in performing vi
 
 1. Install the Plugin
 
-        vedro plugin install vedro_screenshot_matcher
+        vedro plugin install vedro-screenshot-matcher
 
 2. Configure the Plugin
 In your `vedro.cfg.py`:
