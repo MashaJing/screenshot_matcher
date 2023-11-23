@@ -7,7 +7,7 @@ def find_required():
 
 
 setup(
-    name="Matchu Piccu",
+    name="machu-picchu",
     version="0.1.0",
     description="Playwright plugin for matching screenshots with Vedro Testing Framework",
     long_description=open("README.md").read(),

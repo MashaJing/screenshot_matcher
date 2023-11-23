@@ -1,4 +1,4 @@
-name: PyPi
+name: PyPi_MP
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     - name: Install
       run: pip3 install --quiet --upgrade setuptools wheel twine
     - name: Build
-      run: python3 setup_matchu_piccu.py sdist bdist_wheel
+      run: python3 setup_machu_picchu.py sdist bdist_wheel
     - name: Publish
       env:
         TWINE_USERNAME: __token__
