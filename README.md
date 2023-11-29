@@ -1,6 +1,6 @@
 # Vedro Screenshot Matcher
 
-The screenshot_matcher is a powerful tool designed for developers and testers to visually compare two versions of an application. By contrasting a production version (known as "golden") with a development version (referred to as "test"), spotting visual inconsistencies becomes more straightforward.
+The screenshot_matcher (a.k.a. Machu Picchu) is a powerful tool designed for developers and testers to visually compare two versions of an application. By contrasting a production version (known as "golden") with a development version (referred to as "test"), spotting visual inconsistencies becomes more straightforward.
 
 Integrated seamlessly with the vedro testing framework, it aids in performing visual regression tests with ease.
 
