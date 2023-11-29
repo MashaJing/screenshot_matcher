@@ -9,20 +9,23 @@ Integrated seamlessly with the vedro testing framework, it aids in performing vi
 # Installation
 
 1. Install the Plugin
+```shell
+vedro plugin install vedro-screenshot-matcher
+# or
+pip install machu-picchu
+```
 
-        vedro plugin install vedro-screenshot-matcher
-
-2. Configure the Plugin
+3. Configure the Plugin
 In your `vedro.cfg.py`:
 ```python
-        import vedro
-        import screenshot_matcher
-        
-        class Config(vedro.Config):
-            class Plugins(vedro.Config.Plugins):
-                class ScreenshotMatcher(screenshot_matcher.ScreenshotMatcher):
-                    test_app_url = "http://localhost"
-                    golden_app_url = "http://golden-app.com"
+import vedro
+import screenshot_matcher
+
+class Config(vedro.Config):
+    class Plugins(vedro.Config.Plugins):
+        class ScreenshotMatcher(screenshot_matcher.ScreenshotMatcher):
+            test_app_url = "http://localhost"
+            golden_app_url = "http://golden-app.com"
 ```
 Make sure to provide the correct `test_app_url` and `golden_app_url` in the configuration.
 
@@ -30,38 +33,37 @@ Make sure to provide the correct `test_app_url` and `golden_app_url` in the conf
 
 Suppose you have a basic test as below:
 ```python
-    import vedro
-    from contexts import opened_index_page
-    
-    class Scenario(vedro.Scenario):
-        subject = "share page"
-    
-        def given_opened_page(self):
-            self.page = opened_index_page()
-    
-        def when_user_click_on_share(self):
-            self.page.get_by_text("Share").click()
-    
-        def then_it_should_show_share_popup(self):
-            share_popup = self.page.locator(".share-popup .title")
-            assert share_popup.text_content() == "Share Page"
+import vedro
+from contexts import opened_index_page
+
+class Scenario(vedro.Scenario):
+subject = "share page"
+
+def given_opened_page(self):
+    self.page = opened_index_page()
+
+def when_user_click_on_share(self):
+    self.page.get_by_text("Share").click()
+
+def then_it_should_show_share_popup(self):
+    share_popup = self.page.locator(".share-popup .title")
+    assert share_popup.text_content() == "Share Page"
 ```
 
 The context that opens the index page:
 ```python
+import vedro
+import playwright
+from os import environ
 
-    import vedro
-    import playwright
-    from os import environ
-    
-    @vedro.context
-    async def opened_index_page():
-        browser = await playwright.chromium.launch()
-        page = await browser.new_page()
-    
-        await page.goto(environ["APP_URL"])
-    
-        return page
+@vedro.context
+async def opened_index_page():
+browser = await playwright.chromium.launch()
+page = await browser.new_page()
+
+await page.goto(environ["APP_URL"])
+
+return page
 ```
 
 To implement a screenshot assertion:
@@ -69,24 +71,23 @@ To implement a screenshot assertion:
 1. Add the `@screenshot_asserts` decorator at the beginning of the scenario
 2. Include the `match_screenshot` assertion where needed
 ```python
+import vedro
+from screenshot_matcher import screenshot_asserts, match_screenshot
 
-    import vedro
-    from screenshot_matcher import screenshot_asserts, match_screenshot
-    
-    @screenshot_asserts()  # Step 1: Add decorator
-    class Scenario(vedro.Scenario):
-        subject = "share page"
-    
-        def given_opened_page(self):
-            self.page = opened_index_page()
-    
-        def when_user_click_on_share(self):
-            self.page.get_by_text("Share").click()
-    
-        def then_it_should_show_share_popup(self):
-            share_popup = self.page.locator(".share-popup .title")
-            assert share_popup.text_content() == "Share Page"
-            assert match_screenshot(share_popup)  # Step 2: Add screenshot assertion
+@screenshot_asserts()  # Step 1: Add decorator
+class Scenario(vedro.Scenario):
+subject = "share page"
+
+def given_opened_page(self):
+    self.page = opened_index_page()
+
+def when_user_click_on_share(self):
+    self.page.get_by_text("Share").click()
+
+def then_it_should_show_share_popup(self):
+    share_popup = self.page.locator(".share-popup .title")
+    assert share_popup.text_content() == "Share Page"
+    assert match_screenshot(share_popup)  # Step 2: Add screenshot assertion
 ```
 
 By following these steps, the plugin will:
